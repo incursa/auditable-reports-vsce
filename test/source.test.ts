@@ -4,6 +4,7 @@ import { resolve } from "node:path";
 
 import {
   classifyPreviewTarget,
+  compilerPathForExtension,
   diagnosticLine,
   looksLikeReportMarkdown,
   reportDependencies
@@ -40,6 +41,14 @@ test("routes ordinary Markdown to the built-in preview", () => {
     "report"
   );
   assert.equal(classifyPreviewTarget("plaintext", "notes.txt", "Notes"), "unsupported");
+});
+
+test("locates the compiler relative to the installed extension", () => {
+  const extensionPath = resolve("installed", "incursa.auditable-reports-vsce-0.1.2");
+  assert.equal(
+    compilerPathForExtension(extensionPath),
+    resolve(extensionPath, "runtime", "compiler", "compile_report.py")
+  );
 });
 
 test("discovers relative sidecars and figure dependencies", () => {

@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.1.2
+
+- Fixed the installed-extension compiler path on Windows so the bundled Python compiler is resolved beneath the extension directory.
+- Extended the extension-host test to open and successfully compile the feature-tour preview.
+
 ## 0.1.1
 
 - Routed ordinary Markdown files to VS Code's built-in preview instead of showing a Report Markdown error.

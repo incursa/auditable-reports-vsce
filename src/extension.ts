@@ -1,9 +1,13 @@
 import * as vscode from "vscode";
-import { resolve } from "node:path";
 
 import { compileReport, CompileFailure } from "./compiler";
 import type { PreviewMessage } from "./model";
-import { classifyPreviewTarget, diagnosticLine, reportDependencies } from "./source";
+import {
+  classifyPreviewTarget,
+  compilerPathForExtension,
+  diagnosticLine,
+  reportDependencies
+} from "./source";
 
 const PREVIEW_COMMAND = "auditableReports.openPreviewToSide";
 const REFRESH_COMMAND = "auditableReports.refreshPreview";
@@ -181,7 +185,7 @@ class PreviewSession implements vscode.Disposable {
       const artifact = await compileReport(
         this.document.uri.fsPath,
         {
-          compilerPath: this.context.asAbsolutePath(resolve("runtime", "compiler", "compile_report.py")),
+          compilerPath: compilerPathForExtension(this.context.extensionPath),
           pythonPath: vscode.workspace
             .getConfiguration("auditableReports", this.document.uri)
             .get<string>("pythonPath", "")

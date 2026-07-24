@@ -1,4 +1,4 @@
-import { dirname, resolve } from "node:path";
+import { dirname, join, resolve } from "node:path";
 
 const FRONT_MATTER_PATTERN = /^---\s*\r?\n([\s\S]*?)\r?\n---(?:\s*\r?\n|$)/;
 const DEPENDENCY_PATTERN = /^(?:data|evidence|path):\s*(.+?)\s*$/gm;
@@ -22,6 +22,10 @@ export function classifyPreviewTarget(
   if (languageId === "auditable-report" || looksLikeReportMarkdown(text)) return "report";
   if (languageId === "markdown" || /\.md$/i.test(fileName)) return "ordinary-markdown";
   return "unsupported";
+}
+
+export function compilerPathForExtension(extensionPath: string): string {
+  return join(extensionPath, "runtime", "compiler", "compile_report.py");
 }
 
 export function reportDependencies(documentPath: string, text: string): readonly string[] {

@@ -17,5 +17,17 @@ export async function run(): Promise<void> {
   assert.ok(commands.includes("auditableReports.openPreviewToSide"), "Preview command was not registered.");
   assert.ok(commands.includes("auditableReports.refreshPreview"), "Refresh command was not registered.");
 
-  console.log("Extension host passed: commands registered and *.report.md language association active.");
+  await vscode.commands.executeCommand("auditableReports.openPreviewToSide", uri);
+  const deadline = Date.now() + 15_000;
+  let previewCompiled = false;
+  while (Date.now() < deadline) {
+    previewCompiled = vscode.window.tabGroups.all.some((group) =>
+      group.tabs.some((tab) => tab.label === "Preview: Northwind Delivery Review")
+    );
+    if (previewCompiled) break;
+    await new Promise((resolvePromise) => setTimeout(resolvePromise, 100));
+  }
+  assert.ok(previewCompiled, "The bundled compiler did not produce the feature-tour preview.");
+
+  console.log("Extension host passed: installed compiler path produced a live Report Markdown preview.");
 }
