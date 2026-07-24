@@ -1,0 +1,100 @@
+{
+  "datasets": {
+    "headline": [
+      {
+        "approved_budget": 7600000,
+        "forecast_variance": 150000,
+        "at_risk": 2,
+        "completion": 0.64
+      }
+    ],
+    "workstreams": [
+      {
+        "workstream": "Field Enablement",
+        "owner": "A. Moreno",
+        "status": "At risk",
+        "completion": 0.52,
+        "variance": 180000,
+        "next_gate": "2026-08-08"
+      },
+      {
+        "workstream": "Data Migration",
+        "owner": "C. Patel",
+        "status": "At risk",
+        "completion": 0.58,
+        "variance": 110000,
+        "next_gate": "2026-08-02"
+      },
+      {
+        "workstream": "Process Design",
+        "owner": "J. Kim",
+        "status": "On track",
+        "completion": 0.74,
+        "variance": 20000,
+        "next_gate": "2026-08-12"
+      },
+      {
+        "workstream": "Reporting",
+        "owner": "L. Evans",
+        "status": "On track",
+        "completion": 0.61,
+        "variance": -20000,
+        "next_gate": "2026-08-15"
+      },
+      {
+        "workstream": "Integration",
+        "owner": "R. Singh",
+        "status": "On track",
+        "completion": 0.67,
+        "variance": -60000,
+        "next_gate": "2026-08-05"
+      },
+      {
+        "workstream": "Infrastructure",
+        "owner": "S. Brooks",
+        "status": "On track",
+        "completion": 0.72,
+        "variance": -80000,
+        "next_gate": "2026-08-01"
+      }
+    ],
+    "delivery_areas": [
+      {
+        "area": "Platform",
+        "budget": 3100000
+      },
+      {
+        "area": "Data",
+        "budget": 1600000
+      },
+      {
+        "area": "People",
+        "budget": 1200000
+      },
+      {
+        "area": "Process and reporting",
+        "budget": 1700000
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "portfolio_snapshot",
+      "label": "Synthetic Northwind portfolio snapshot",
+      "path": "report.data.json",
+      "query": {
+        "engine": "fixture",
+        "language": "sql",
+        "id": "northwind-july-review",
+        "executed_at": "2026-07-24T12:00:00-06:00",
+        "description": "Invented workstream, budget, milestone, and status rows.",
+        "sql": "SELECT * FROM fictional_portfolio_review"
+      }
+    },
+    {
+      "id": "pipeline_illustration",
+      "label": "Synthetic report pipeline illustration",
+      "path": "report-pipeline.svg"
+    }
+  ]
+}

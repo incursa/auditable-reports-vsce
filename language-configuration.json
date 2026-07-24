@@ -1,0 +1,68 @@
+{
+  "comments": {
+    "blockComment": [
+      "<!--",
+      "-->"
+    ]
+  },
+  "brackets": [
+    [
+      "[",
+      "]"
+    ],
+    [
+      "(",
+      ")"
+    ],
+    [
+      "{",
+      "}"
+    ]
+  ],
+  "autoClosingPairs": [
+    {
+      "open": "`",
+      "close": "`"
+    },
+    {
+      "open": "**",
+      "close": "**"
+    },
+    {
+      "open": "[",
+      "close": "]"
+    },
+    {
+      "open": "(",
+      "close": ")"
+    }
+  ],
+  "surroundingPairs": [
+    [
+      "`",
+      "`"
+    ],
+    [
+      "*",
+      "*"
+    ],
+    [
+      "_",
+      "_"
+    ],
+    [
+      "[",
+      "]"
+    ],
+    [
+      "(",
+      ")"
+    ]
+  ],
+  "folding": {
+    "markers": {
+      "start": "^\\s*:::\\s+(metrics|chart|table|figure)\\s*$",
+      "end": "^\\s*:::\\s*$"
+    }
+  }
+}

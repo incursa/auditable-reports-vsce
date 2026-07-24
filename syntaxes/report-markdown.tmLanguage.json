@@ -1,0 +1,82 @@
+{
+  "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+  "name": "Auditable Report Markdown",
+  "scopeName": "text.html.markdown.auditable-report",
+  "patterns": [
+    {
+      "include": "#frontmatter"
+    },
+    {
+      "include": "#directives"
+    },
+    {
+      "include": "text.html.markdown"
+    }
+  ],
+  "repository": {
+    "frontmatter": {
+      "begin": "\\A---\\s*$",
+      "beginCaptures": {
+        "0": {
+          "name": "punctuation.definition.frontmatter.begin"
+        }
+      },
+      "end": "^---\\s*$",
+      "endCaptures": {
+        "0": {
+          "name": "punctuation.definition.frontmatter.end"
+        }
+      },
+      "contentName": "meta.embedded.block.frontmatter",
+      "patterns": [
+        {
+          "match": "^([a-z][a-z0-9-]*)(:)(.*)$",
+          "captures": {
+            "1": {
+              "name": "entity.name.tag.yaml"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.yaml"
+            },
+            "3": {
+              "name": "string.unquoted.plain.out.yaml"
+            }
+          }
+        }
+      ]
+    },
+    "directives": {
+      "begin": "^\\s*(:::)(?:\\s+)(metrics|chart|table|figure)\\s*$",
+      "beginCaptures": {
+        "1": {
+          "name": "punctuation.definition.directive.begin"
+        },
+        "2": {
+          "name": "support.type.directive.report"
+        }
+      },
+      "end": "^\\s*(:::)\\s*$",
+      "endCaptures": {
+        "1": {
+          "name": "punctuation.definition.directive.end"
+        }
+      },
+      "patterns": [
+        {
+          "match": "^\\s*([a-z][a-z0-9-]*)(:)(.*)$",
+          "captures": {
+            "1": {
+              "name": "variable.other.property.report"
+            },
+            "2": {
+              "name": "punctuation.separator.key-value.report"
+            },
+            "3": {
+              "name": "string.unquoted.report"
+            }
+          }
+        }
+      ]
+    }
+  }
+}

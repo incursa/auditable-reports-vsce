@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="256" height="256" viewBox="0 0 256 256" role="img" aria-labelledby="title desc">
+  <title id="title">Auditable Reports</title>
+  <desc id="desc">A report page with a compact chart and an evidence check.</desc>
+  <defs>
+    <linearGradient id="bg" x1="28" y1="24" x2="226" y2="234" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#4459C6"/>
+      <stop offset="1" stop-color="#263248"/>
+    </linearGradient>
+  </defs>
+  <rect x="12" y="12" width="232" height="232" rx="54" fill="url(#bg)"/>
+  <path d="M68 48h83l37 37v117a14 14 0 0 1-14 14H68a14 14 0 0 1-14-14V62a14 14 0 0 1 14-14Z" fill="#FFF"/>
+  <path d="M151 48v27a10 10 0 0 0 10 10h27" fill="#DCE2FF"/>
+  <path d="M151 48v27a10 10 0 0 0 10 10h27" fill="none" stroke="#AEB8EE" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M78 88h48M78 106h69" stroke="#4459C6" stroke-width="9" stroke-linecap="round"/>
+  <path d="M80 170v-26M105 170v-43M130 170v-61" stroke="#25A59A" stroke-width="15" stroke-linecap="round"/>
+  <circle cx="170" cy="171" r="32" fill="#E4A448" stroke="#FFF" stroke-width="8"/>
+  <path d="m154 171 11 11 23-27" fill="none" stroke="#263248" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>

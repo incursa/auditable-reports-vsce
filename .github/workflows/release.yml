@@ -1,0 +1,38 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - "v*"
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    env:
+      VSCE_PAT: ${{ secrets.VSCE_PAT }}
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: xvfb-run -a npm run release:check
+      - uses: softprops/action-gh-release@v3
+        with:
+          files: auditable-reports-vsce.vsix
+          generate_release_notes: true
+      - name: Publish to Visual Studio Marketplace
+        run: |
+          if [ -z "$VSCE_PAT" ]; then
+            echo "::error::VSCE_PAT is not configured for this repository or organization."
+            exit 1
+          fi
+          npx vsce publish --pat "$VSCE_PAT"

@@ -1,0 +1,196 @@
+{
+  "name": "auditable-reports-vsce",
+  "displayName": "Auditable Reports for VS Code",
+  "description": "Author constrained Report Markdown with a live, side-by-side preview backed by the canonical auditable report compiler.",
+  "version": "0.1.0",
+  "publisher": "incursa",
+  "license": "SEE LICENSE IN LICENSE",
+  "engines": {
+    "vscode": "^1.110.0"
+  },
+  "preview": true,
+  "pricing": "Free",
+  "markdown": "github",
+  "galleryBanner": {
+    "color": "#263248",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/incursa/auditable-reports-vsce.git"
+  },
+  "homepage": "https://github.com/incursa/auditable-reports-vsce#readme",
+  "bugs": {
+    "url": "https://github.com/incursa/auditable-reports-vsce/issues"
+  },
+  "categories": [
+    "Visualization",
+    "Other"
+  ],
+  "keywords": [
+    "markdown",
+    "reports",
+    "pagedjs",
+    "chartjs",
+    "print",
+    "pdf",
+    "audit",
+    "documentation"
+  ],
+  "icon": "images/icon.png",
+  "main": "./dist/node/extension.cjs",
+  "capabilities": {
+    "untrustedWorkspaces": {
+      "supported": "limited",
+      "description": "Syntax highlighting remains available, but live preview is disabled because it invokes the bundled compiler through the local Python runtime.",
+      "restrictedConfigurations": [
+        "auditableReports.pythonPath"
+      ]
+    }
+  },
+  "contributes": {
+    "languages": [
+      {
+        "id": "auditable-report",
+        "aliases": [
+          "Report Markdown",
+          "Auditable Report"
+        ],
+        "extensions": [
+          ".report.md"
+        ],
+        "filenamePatterns": [
+          "**/stakeholder-report.md"
+        ],
+        "configuration": "./language-configuration.json",
+        "icon": {
+          "light": "./resources/report-file-light.svg",
+          "dark": "./resources/report-file-dark.svg"
+        }
+      }
+    ],
+    "grammars": [
+      {
+        "language": "auditable-report",
+        "scopeName": "text.html.markdown.auditable-report",
+        "path": "./syntaxes/report-markdown.tmLanguage.json",
+        "embeddedLanguages": {
+          "meta.embedded.block.frontmatter": "yaml"
+        }
+      }
+    ],
+    "snippets": [
+      {
+        "language": "auditable-report",
+        "path": "./snippets/report-markdown.json"
+      }
+    ],
+    "commands": [
+      {
+        "command": "auditableReports.openPreviewToSide",
+        "title": "Auditable Reports: Open Preview to the Side",
+        "category": "Auditable Reports",
+        "icon": "$(open-preview)"
+      },
+      {
+        "command": "auditableReports.refreshPreview",
+        "title": "Auditable Reports: Refresh Preview",
+        "category": "Auditable Reports",
+        "icon": "$(refresh)"
+      },
+      {
+        "command": "auditableReports.showOutput",
+        "title": "Auditable Reports: Show Output",
+        "category": "Auditable Reports"
+      }
+    ],
+    "menus": {
+      "editor/title": [
+        {
+          "command": "auditableReports.openPreviewToSide",
+          "when": "editorLangId == auditable-report",
+          "group": "navigation@1"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "auditableReports.refreshPreview",
+          "when": "auditableReports.previewVisible"
+        }
+      ]
+    },
+    "keybindings": [
+      {
+        "command": "auditableReports.openPreviewToSide",
+        "key": "ctrl+k v",
+        "mac": "cmd+k v",
+        "when": "editorTextFocus && editorLangId == auditable-report"
+      }
+    ],
+    "configuration": {
+      "title": "Auditable Reports",
+      "properties": {
+        "auditableReports.preview.debounceMs": {
+          "type": "number",
+          "default": 350,
+          "minimum": 100,
+          "maximum": 2000,
+          "scope": "resource",
+          "description": "Delay after an edit before recompiling the open report preview."
+        },
+        "auditableReports.preview.preserveScroll": {
+          "type": "boolean",
+          "default": true,
+          "scope": "resource",
+          "description": "Keep the preview near the same reading position when an edit is rendered."
+        },
+        "auditableReports.pythonPath": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "description": "Optional absolute path to Python 3. When empty, the extension tries the Windows py launcher and then python."
+        }
+      }
+    }
+  },
+  "activationEvents": [
+    "onLanguage:auditable-report",
+    "onCommand:auditableReports.openPreviewToSide",
+    "onCommand:auditableReports.refreshPreview",
+    "onCommand:auditableReports.showOutput"
+  ],
+  "scripts": {
+    "clean": "node scripts/clean.mjs",
+    "check-types": "tsc --noEmit -p tsconfig.json",
+    "lint": "eslint src test",
+    "build": "npm run clean && npm run check-types && npm run lint && node esbuild.mjs",
+    "build:production": "npm run clean && npm run check-types && npm run lint && node esbuild.mjs --production",
+    "test": "npm run build && node --test dist/test/**/*.test.cjs",
+    "test:webview": "npm run build && node scripts/webview-smoke.mjs",
+    "test:extension": "npm run build && node scripts/test-extension-host.mjs",
+    "test:all": "npm run test && npm run test:webview && npm run test:extension",
+    "compiler:sync": "node scripts/sync-report-compiler.mjs",
+    "compiler:verify": "node scripts/verify-report-compiler.mjs",
+    "brand:build": "node scripts/build-brand-assets.mjs",
+    "brand:verify": "node scripts/verify-brand-assets.mjs",
+    "vscode:prepublish": "npm run build:production && npm run compiler:verify",
+    "package:vsix": "npm run build:production && npm run compiler:verify && vsce package --out auditable-reports-vsce.vsix",
+    "release:check": "npm run brand:verify && npm run compiler:verify && npm run test:all && npm run package:vsix",
+    "watch": "node esbuild.mjs --watch"
+  },
+  "devDependencies": {
+    "@types/markdown-it": "^14.1.2",
+    "@types/node": "^24.10.1",
+    "@types/vscode": "^1.110.0",
+    "@vscode/test-electron": "3.0.0",
+    "@vscode/vsce": "^3.7.1",
+    "chart.js": "4.5.1",
+    "esbuild": "^0.28.1",
+    "eslint": "^9.39.3",
+    "jsdom": "^27.4.0",
+    "markdown-it": "14.3.0",
+    "playwright": "^1.59.1",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8.56.1"
+  }
+}

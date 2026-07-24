@@ -1,0 +1,50 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: npm ci
+      - run: npx playwright install --with-deps chromium
+      - run: npm test
+      - run: npm run test:webview
+      - run: xvfb-run -a npm run test:extension
+      - run: npm run brand:verify
+      - run: npm run compiler:verify
+      - run: npm run package:vsix
+      - uses: actions/upload-artifact@v7
+        with:
+          name: auditable-reports-vsce
+          path: auditable-reports-vsce.vsix
+
+  windows:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: 22
+          cache: npm
+      - uses: actions/setup-python@v6
+        with:
+          python-version: "3.12"
+      - run: npm ci
+      - run: npx playwright install chromium
+      - run: npm run test:all
+      - run: npm run compiler:verify

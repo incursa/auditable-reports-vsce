@@ -1,0 +1,13 @@
+# Changelog
+
+## 0.1.0
+
+- Added a Report Markdown language for `*.report.md` and conventional `stakeholder-report.md` files.
+- Added a live side-by-side preview that recompiles after source edits.
+- Bundled the canonical Auditable Reports Python compiler with commit and SHA-256 provenance.
+- Added source-line diagnostics and an Auditable Reports output channel.
+- Rendered Markdown, code blocks, metrics, semantic tables, embedded figures, and Chart.js bar and pie charts.
+- Honored document profile, orientation, source-display, and print-intent metadata.
+- Added snippets for the standard constrained building blocks.
+- Required Workspace Trust for local compiler execution and blocked remote webview resources.
+- Added deterministic product branding, a feature-tour report, browser preview verification, and VSIX packaging.

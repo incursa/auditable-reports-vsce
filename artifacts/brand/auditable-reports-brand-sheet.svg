@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="720" viewBox="0 0 1200 720" role="img" aria-labelledby="title">
+  <title id="title">Auditable Reports brand sheet</title>
+  <rect width="1200" height="720" fill="#F3F5F8"/>
+  <text x="64" y="72" fill="#263248" font-family="Segoe UI,Arial,sans-serif" font-size="34" font-weight="750">Auditable Reports · brand system</text>
+  <g transform="translate(64 118)">
+    <rect width="330" height="330" rx="30" fill="#263248"/>
+    <image href="../../images/auditable-reports-icon.svg" x="37" y="37" width="256" height="256"/>
+    <text x="165" y="306" text-anchor="middle" fill="#DDE3F5" font-family="Segoe UI,Arial,sans-serif" font-size="13">Primary product icon</text>
+  </g>
+  <g transform="translate(446 132)" font-family="Segoe UI,Arial,sans-serif">
+    <text x="0" y="0" fill="#263248" font-size="17" font-weight="700">Palette</text>
+    <g transform="translate(0 28)">
+      <rect width="130" height="82" rx="10" fill="#4459C6"/><text x="14" y="104" fill="#263248" font-size="13">Incursa Indigo</text><text x="14" y="122" fill="#667085" font-size="12">#4459C6</text>
+    </g>
+    <g transform="translate(154 28)">
+      <rect width="130" height="82" rx="10" fill="#263248"/><text x="14" y="104" fill="#263248" font-size="13">Report Ink</text><text x="14" y="122" fill="#667085" font-size="12">#263248</text>
+    </g>
+    <g transform="translate(308 28)">
+      <rect width="130" height="82" rx="10" fill="#25A59A"/><text x="14" y="104" fill="#263248" font-size="13">Evidence Teal</text><text x="14" y="122" fill="#667085" font-size="12">#25A59A</text>
+    </g>
+    <g transform="translate(462 28)">
+      <rect width="130" height="82" rx="10" fill="#E4A448"/><text x="14" y="104" fill="#263248" font-size="13">Print Gold</text><text x="14" y="122" fill="#667085" font-size="12">#E4A448</text>
+    </g>
+    <text x="0" y="210" fill="#263248" font-size="17" font-weight="700">Symbol rationale</text>
+    <text x="0" y="242" fill="#4D5A70" font-size="16">Document page · bounded chart · evidence check</text>
+    <text x="0" y="274" fill="#4D5A70" font-size="16">The page is canonical; the check signals auditability.</text>
+  </g>
+  <g transform="translate(64 505)">
+    <rect width="1072" height="150" rx="20" fill="#FFF" stroke="#D9DFE8"/>
+    <image href="../../images/auditable-reports-wordmark-vscode.svg" x="28" y="15" width="720" height="120"/>
+    <g transform="translate(850 34)" color="#263248">
+      <image href="../../resources/auditable-reports.svg" width="64" height="64"/>
+      <text x="32" y="92" text-anchor="middle" fill="#667085" font-family="Segoe UI,Arial,sans-serif" font-size="12">Activity mark</text>
+    </g>
+  </g>
+</svg>

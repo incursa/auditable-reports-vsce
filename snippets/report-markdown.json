@@ -1,0 +1,78 @@
+{
+  "New analytical report": {
+    "prefix": "report",
+    "description": "Create a complete Report Markdown document shell.",
+    "body": [
+      "---",
+      "document-type: report",
+      "description: ${1:One-sentence report scope.}",
+      "generated-at: ${2:2026-07-24T12:00:00-06:00}",
+      "status: ${3|ready,partial,blocked,fixture|}",
+      "data: ${4:report.data.json}",
+      "print-orientation: ${5|portrait,landscape|}",
+      "page-size: ${6|Letter,A4,Legal|}",
+      "source-display: ${7|visible,hidden|}",
+      "date-display: ${8|date-only,timestamp,hidden|}",
+      "---",
+      "",
+      "# ${9:Report title}",
+      "",
+      "## Executive Summary",
+      "",
+      "${10:Lead with the answer, decision, or most important finding.}",
+      "",
+      "$0"
+    ]
+  },
+  "Metric strip": {
+    "prefix": "metrics",
+    "body": [
+      "::: metrics",
+      "id: ${1:headline_metrics}",
+      "dataset: ${2:headline}",
+      "source: ${3:reviewed_snapshot}",
+      "metric: ${4:value} | ${5:Label} | ${6|number,currency,percent|} | ${7:Description}",
+      ":::"
+    ]
+  },
+  "Bar or pie chart": {
+    "prefix": "chart",
+    "body": [
+      "::: chart",
+      "id: ${1:comparison_chart}",
+      "type: ${2|bar,pie|}",
+      "title: ${3:Chart title}",
+      "dataset: ${4:items}",
+      "source: ${5:reviewed_snapshot}",
+      "category: ${6:category}",
+      "value: ${7:value}",
+      "format: ${8|number,currency,percent|}",
+      ":::"
+    ]
+  },
+  "Semantic table": {
+    "prefix": "table",
+    "body": [
+      "::: table",
+      "id: ${1:detail_table}",
+      "kind: ${2|standard,decision,incompatibility,recommendation,assumption|}",
+      "title: ${3:Table title}",
+      "dataset: ${4:items}",
+      "source: ${5:reviewed_snapshot}",
+      "column: ${6:item} | ${7:Item} | ${8|text,date,number,currency,percent|} | ${9|item,narrative,decision,recommendation,owner,status,date,amount|}",
+      ":::"
+    ]
+  },
+  "Figure or screenshot": {
+    "prefix": "figure",
+    "body": [
+      "::: figure",
+      "id: ${1:workflow_screenshot}",
+      "path: ${2:images/workflow.png}",
+      "alt: ${3:Describe the meaningful content of the image.}",
+      "caption: ${4:Optional visible caption.}",
+      "source: ${5:workflow_capture}",
+      ":::"
+    ]
+  }
+}
