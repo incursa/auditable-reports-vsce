@@ -12,6 +12,18 @@ export function looksLikeReportMarkdown(text: string): boolean {
     && (/^data:\s*\S+/m.test(frontMatter) || /^evidence:\s*\S+/m.test(frontMatter));
 }
 
+export type PreviewTarget = "report" | "ordinary-markdown" | "unsupported";
+
+export function classifyPreviewTarget(
+  languageId: string,
+  fileName: string,
+  text: string
+): PreviewTarget {
+  if (languageId === "auditable-report" || looksLikeReportMarkdown(text)) return "report";
+  if (languageId === "markdown" || /\.md$/i.test(fileName)) return "ordinary-markdown";
+  return "unsupported";
+}
+
 export function reportDependencies(documentPath: string, text: string): readonly string[] {
   const base = dirname(documentPath);
   const dependencies = new Set<string>();

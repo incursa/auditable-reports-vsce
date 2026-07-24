@@ -15,6 +15,7 @@ Write constrained Report Markdown as ordinary text and keep a polished report pr
 - Uses bundled Chart.js for the editing preview.
 - Honors document profile, source visibility, page orientation, and other safe report settings.
 - Reports invalid directives and front matter through VS Code diagnostics and the **Auditable Reports** output channel.
+- Routes ordinary `.md` files to VS Code's built-in Markdown preview instead of treating them as malformed reports.
 
 The preview is intentionally derived output. Report Markdown compiles through the same canonical compiler used by the report tooling, and `artifact.json` remains the report intermediate representation.
 
@@ -70,6 +71,17 @@ If Python is not on `PATH`, set **Auditable Reports: Python Path** in user setti
 ## Supported source names
 
 Use `*.report.md` for new files. The conventional `stakeholder-report.md` name is also recognized for existing decision-brief workspaces. Any saved Markdown file with valid report front matter can be previewed from the Command Palette.
+
+## CSS and report styling
+
+Report-specific CSS files are intentionally not loaded by the editing preview. The extension has a bundled
+preview stylesheet, while final print styling comes from the shared Auditable Reports renderer and Paged.js.
+Put safe choices such as profile, page size, orientation, source visibility, date display, and semantic table
+roles in Report Markdown. Keep a legacy `stakeholder-report.css` only as a migration reference; do not expect
+it to change the canonical preview or PDF.
+
+See [Migrating an HTML/CSS report](https://github.com/incursa/auditable-reports-vsce/blob/main/docs/MIGRATING-LEGACY-REPORTS.md) for the one-time mapping
+from legacy mastheads, callouts, HTML tables, images, page-break classes, and custom CSS.
 
 ## Current gaps
 

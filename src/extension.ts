@@ -3,7 +3,7 @@ import { resolve } from "node:path";
 
 import { compileReport, CompileFailure } from "./compiler";
 import type { PreviewMessage } from "./model";
-import { diagnosticLine, looksLikeReportMarkdown, reportDependencies } from "./source";
+import { classifyPreviewTarget, diagnosticLine, reportDependencies } from "./source";
 
 const PREVIEW_COMMAND = "auditableReports.openPreviewToSide";
 const REFRESH_COMMAND = "auditableReports.refreshPreview";
@@ -49,9 +49,17 @@ class PreviewManager implements vscode.Disposable {
       void vscode.window.showErrorMessage("Auditable Reports preview currently requires a saved local file.");
       return;
     }
-    if (!looksLikeReportMarkdown(document.getText())) {
-      void vscode.window.showErrorMessage(
-        "This file does not have Report Markdown front matter with generated-at, status, and data or evidence."
+    const target = classifyPreviewTarget(document.languageId, document.fileName, document.getText());
+    if (target === "ordinary-markdown") {
+      await vscode.commands.executeCommand("markdown.showPreviewToSide", document.uri);
+      void vscode.window.showInformationMessage(
+        "Opened VS Code's Markdown preview. Auditable Reports preview is reserved for *.report.md and stakeholder-report.md files."
+      );
+      return;
+    }
+    if (target === "unsupported") {
+      void vscode.window.showInformationMessage(
+        "Auditable Reports can preview Report Markdown files (*.report.md or stakeholder-report.md)."
       );
       return;
     }

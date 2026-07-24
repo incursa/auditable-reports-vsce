@@ -2,7 +2,12 @@ import assert from "node:assert/strict";
 import test from "node:test";
 import { resolve } from "node:path";
 
-import { diagnosticLine, looksLikeReportMarkdown, reportDependencies } from "../src/source";
+import {
+  classifyPreviewTarget,
+  diagnosticLine,
+  looksLikeReportMarkdown,
+  reportDependencies
+} from "../src/source";
 
 const report = `---
 description: Test
@@ -26,6 +31,15 @@ alt: State
 test("recognizes constrained Report Markdown front matter", () => {
   assert.equal(looksLikeReportMarkdown(report), true);
   assert.equal(looksLikeReportMarkdown("# Ordinary Markdown"), false);
+});
+
+test("routes ordinary Markdown to the built-in preview", () => {
+  assert.equal(classifyPreviewTarget("markdown", "notes.md", "# Notes"), "ordinary-markdown");
+  assert.equal(
+    classifyPreviewTarget("auditable-report", "stakeholder-report.md", "---\npagetitle: Legacy\n---\n"),
+    "report"
+  );
+  assert.equal(classifyPreviewTarget("plaintext", "notes.txt", "Notes"), "unsupported");
 });
 
 test("discovers relative sidecars and figure dependencies", () => {

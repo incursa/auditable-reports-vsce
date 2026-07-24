@@ -2,7 +2,7 @@
   "name": "auditable-reports-vsce",
   "displayName": "Auditable Reports for VS Code",
   "description": "Author constrained Report Markdown with a live, side-by-side preview backed by the canonical auditable report compiler.",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "publisher": "incursa",
   "license": "SEE LICENSE IN LICENSE",
   "engines": {

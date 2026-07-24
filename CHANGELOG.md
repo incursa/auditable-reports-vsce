@@ -1,5 +1,11 @@
 # Changelog
 
+## 0.1.1
+
+- Routed ordinary Markdown files to VS Code's built-in preview instead of showing a Report Markdown error.
+- Allowed incomplete or legacy report files to reach the canonical compiler for precise diagnostics.
+- Documented the boundary between the bundled editing-preview styles and canonical Paged.js print styles.
+
 ## 0.1.0
 
 - Added a Report Markdown language for `*.report.md` and conventional `stakeholder-report.md` files.

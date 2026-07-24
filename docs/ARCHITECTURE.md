@@ -52,6 +52,10 @@ The preview renderer is not the canonical interactive or print renderer. Its pur
 
 The extension contributes a Markdown-derived TextMate grammar, language configuration, file icons, and constrained authoring snippets. The standard text editor remains responsible for file writes and edit history.
 
+When the preview command is invoked on ordinary Markdown, the extension delegates to VS Code's built-in
+Markdown preview. Files associated with `auditable-report` always reach the canonical compiler so incomplete
+or legacy front matter receives a precise compiler diagnostic instead of a generic preflight failure.
+
 ## Refresh behavior
 
 Text edits schedule compilation after `auditableReports.preview.debounceMs`. A newer edit aborts an older compilation and stale results are ignored by revision number.
@@ -67,6 +71,8 @@ The source is scanned for relative `data`, `evidence`, and figure `path` depende
 - The webview Content Security Policy blocks remote content.
 - Chart.js and Markdown rendering are bundled with the extension.
 - Markdown raw HTML is disabled.
+- Report-authored CSS is disabled. The editing surface uses a bundled preview stylesheet; the final edition
+  uses shared renderer and Paged.js print CSS derived from safe report configuration.
 - Figure HTML is not inserted directly; the webview reconstructs an image and text caption from compiler-validated data.
 - The webview receives an artifact only after a successful compile.
 
