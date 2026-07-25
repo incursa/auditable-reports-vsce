@@ -1,6 +1,7 @@
 name: Release
 
 on:
+  workflow_dispatch:
   push:
     tags:
       - "v*"
@@ -11,6 +12,7 @@ permissions:
 jobs:
   release:
     runs-on: ubuntu-latest
+    environment: marketplace
     env:
       VSCE_PAT: ${{ secrets.VSCE_PAT }}
     steps:
@@ -27,7 +29,9 @@ jobs:
       - run: xvfb-run -a npm run release:check
       - uses: softprops/action-gh-release@v3
         with:
-          files: auditable-reports-vsce.vsix
+          files: |
+            auditable-reports-vsce.vsix
+            auditable-reports-vsce.vsix.sha256
           generate_release_notes: true
       - name: Publish to Visual Studio Marketplace
         run: |

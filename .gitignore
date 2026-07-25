@@ -1,6 +1,7 @@
 node_modules/
 dist/
 *.vsix
+*.vsix.sha256
 .work/
 .vscode-test/
 artifacts/runtime/

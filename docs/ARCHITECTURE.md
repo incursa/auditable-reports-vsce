@@ -94,5 +94,10 @@ The VSIX includes:
 1. Sidecar buffers: preview currently observes saved JSON and image content. A future virtual compilation workspace could mirror dirty sidecar buffers without mutating the project.
 2. Exact pagination: the authoring preview shows safe page-break intent but not Paged.js page boxes. An optional paginated inspection mode could use the canonical print build without replacing the fast preview.
 3. Navigation: block IDs make source-to-preview scroll sync and click-to-reveal feasible, but source ranges must be added to the compiler result or a parallel source map.
-4. Python dependency: a future compiler package could target Node or WebAssembly if it preserves byte-for-byte artifact parity fixtures.
+4. Python dependency: a future TypeScript compiler may target Node and the browser only after a shared fixture suite proves deep-equal canonical `artifact.json` output for every document profile, directive, normalization rule, failure category, and evidence-package shape. Until that parity gate exists, Python remains the sole DSL implementation and a web host must not claim compilation support.
 5. Build command: final bundle generation can be exposed through a trusted task or command after output destination, locked-file behavior, and progress reporting are specified.
+
+The sibling `auditable-reports` bundle remains the print authority. Its ordinary bundle command forwards
+page size, orientation, source/date display, and PDF name to local Paged.js/Chart.js rendering, writes
+paginated HTML beside the PDF, validates the resulting pages, and uses lock-safe atomic replacement. The
+extension deliberately does not fork those rules into its fast editing preview.

@@ -17,3 +17,20 @@ test("bundled canonical compiler produces an artifact for the feature tour", asy
   assert.equal(artifact.manifest.tables.length, 1);
   assert.equal(artifact.manifest.cards.length, 4);
 });
+
+test("chartless decision brief hides sources without discarding canonical evidence", async () => {
+  const artifact = await compileReport(
+    resolve("examples", "decision-brief", "report.report.md"),
+    {
+      compilerPath: resolve("runtime", "compiler", "compile_report.py")
+    }
+  );
+
+  assert.equal(artifact.reportConfig?.documentType, "decision-brief");
+  assert.equal(artifact.reportConfig?.sourceDisplay, "hidden");
+  assert.equal(artifact.manifest.charts.length, 0);
+  assert.equal(artifact.manifest.sources.length, 1);
+  assert.equal(artifact.sources.length, 1);
+  assert.ok(artifact.evidence);
+  assert.equal(artifact.evidence?.decisions?.length, 1);
+});
