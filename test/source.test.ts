@@ -44,7 +44,7 @@ test("routes ordinary Markdown to the built-in preview", () => {
 });
 
 test("locates the compiler relative to the installed extension", () => {
-  const extensionPath = resolve("installed", "incursa.auditable-reports-vsce-0.1.2");
+  const extensionPath = resolve("C:\\Program Files", "München 工具", "incursa.auditable-reports-vsce-0.1.2");
   assert.equal(
     compilerPathForExtension(extensionPath),
     resolve(extensionPath, "runtime", "compiler", "compile_report.py")

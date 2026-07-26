@@ -25,6 +25,16 @@ export interface ReportArtifact {
     readonly datasets: Readonly<Record<string, readonly Record<string, unknown>[]>>;
   };
   readonly sources: readonly ReportSource[];
+  readonly evidence?: {
+    readonly version: number;
+    readonly requirements: readonly Record<string, unknown>[];
+    readonly conflicts: readonly Record<string, unknown>[];
+    readonly decisions: readonly Record<string, unknown>[];
+    readonly assumptions: readonly Record<string, unknown>[];
+    readonly recommendations: readonly Record<string, unknown>[];
+    readonly datasets: Readonly<Record<string, readonly Record<string, unknown>[]>>;
+    readonly sources: readonly ReportSource[];
+  };
 }
 
 export interface ReportSource {

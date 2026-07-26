@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.1.3
+
+- Added a chartless decision-brief fixture proving hidden stakeholder sources do not remove canonical evidence.
+- Extended the installed compiler-path regression to cover spaces and non-ASCII Windows paths.
+- Added deterministic VSIX content inspection and a SHA-256 sidecar to CI and release artifacts.
+- Documented the artifact-parity gate required before any future TypeScript or browser compiler.
+
 ## 0.1.2
 
 - Fixed the installed-extension compiler path on Windows so the bundled Python compiler is resolved beneath the extension directory.

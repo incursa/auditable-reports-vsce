@@ -1,0 +1,40 @@
+{
+  "version": 1,
+  "requirements": [
+    {
+      "id": "req_approval",
+      "item": "R-01",
+      "requirement": "An accountable approver must accept the bounded exception.",
+      "status": "Open",
+      "sourceIds": ["synthetic_review"]
+    }
+  ],
+  "conflicts": [],
+  "decisions": [
+    {
+      "id": "decision_pilot",
+      "item": "D-01",
+      "decision": "Authorize the bounded synthetic pilot.",
+      "recommendation": "Approve while keeping production posting disabled.",
+      "status": "Decision needed",
+      "sourceIds": ["synthetic_review"]
+    }
+  ],
+  "assumptions": [
+    {
+      "id": "assumption_scope",
+      "item": "A-01",
+      "narrative": "The fixture contains no customer or production data.",
+      "sourceIds": ["synthetic_review"]
+    }
+  ],
+  "recommendations": [],
+  "datasets": {},
+  "sources": [
+    {
+      "id": "synthetic_review",
+      "label": "Synthetic fixture review",
+      "path": "source-notes.md"
+    }
+  ]
+}

@@ -28,10 +28,13 @@ jobs:
       - run: npm run brand:verify
       - run: npm run compiler:verify
       - run: npm run package:vsix
+      - run: npm run inspect:vsix
       - uses: actions/upload-artifact@v7
         with:
           name: auditable-reports-vsce
-          path: auditable-reports-vsce.vsix
+          path: |
+            auditable-reports-vsce.vsix
+            auditable-reports-vsce.vsix.sha256
 
   windows:
     runs-on: windows-latest
