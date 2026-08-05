@@ -2,7 +2,7 @@
   "name": "auditable-reports-vsce",
   "displayName": "Auditable Reports for VS Code",
   "description": "Author constrained Report Markdown with a live, side-by-side preview backed by the canonical auditable report compiler.",
-  "version": "0.1.3",
+  "version": "0.1.4",
   "publisher": "incursa",
   "license": "SEE LICENSE IN LICENSE",
   "engines": {
@@ -88,19 +88,19 @@
     "commands": [
       {
         "command": "auditableReports.openPreviewToSide",
-        "title": "Auditable Reports: Open Preview to the Side",
+        "title": "Open Preview to the Side",
         "category": "Auditable Reports",
         "icon": "$(open-preview)"
       },
       {
         "command": "auditableReports.refreshPreview",
-        "title": "Auditable Reports: Refresh Preview",
+        "title": "Refresh Preview",
         "category": "Auditable Reports",
         "icon": "$(refresh)"
       },
       {
         "command": "auditableReports.showOutput",
-        "title": "Auditable Reports: Show Output",
+        "title": "Show Output",
         "category": "Auditable Reports"
       }
     ],

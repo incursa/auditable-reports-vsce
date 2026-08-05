@@ -1,5 +1,6 @@
 import assert from "node:assert/strict";
 import test from "node:test";
+import { readFileSync } from "node:fs";
 import { resolve } from "node:path";
 
 import {
@@ -65,4 +66,13 @@ test("discovers relative sidecars and figure dependencies", () => {
 test("maps compiler line numbers to zero-based editor lines", () => {
   assert.equal(diagnosticLine("line 17: expected 'key: value'"), 16);
   assert.equal(diagnosticLine("unstructured error"), undefined);
+});
+
+test("command palette titles do not duplicate their category", () => {
+  const manifest = JSON.parse(readFileSync(resolve("package.json"), "utf8")) as {
+    contributes: { commands: Array<{ title: string; category?: string }> };
+  };
+  for (const command of manifest.contributes.commands.filter((item) => item.category === "Auditable Reports")) {
+    assert.equal(command.title.startsWith("Auditable Reports:"), false);
+  }
 });
