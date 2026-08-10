@@ -35,12 +35,12 @@
       ":::"
     ]
   },
-  "Bar or pie chart": {
+  "Bounded chart": {
     "prefix": "chart",
     "body": [
       "::: chart",
       "id: ${1:comparison_chart}",
-      "type: ${2|bar,pie|}",
+      "type: ${2|bar,line,pie,scatter|}",
       "title: ${3:Chart title}",
       "dataset: ${4:items}",
       "source: ${5:reviewed_snapshot}",

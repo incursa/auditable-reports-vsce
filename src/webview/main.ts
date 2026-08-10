@@ -149,6 +149,7 @@ function renderMetrics(artifact: ReportArtifact, cards: readonly ReportCard[], b
 function renderChart(artifact: ReportArtifact, chart: ReportChart): HTMLElement {
   const section = element("section", "visual-card chart-card");
   section.dataset.blockId = chart.id;
+  section.dataset.chartType = chart.type;
   const heading = element("div", "visual-heading");
   heading.append(element("h3", "", chart.title));
   if (chart.subtitle) heading.append(element("p", "", chart.subtitle));
@@ -161,22 +162,41 @@ function renderChart(artifact: ReportArtifact, chart: ReportChart): HTMLElement 
   const labels = rows.map((row) => String(row[chart.encodings.x.field] ?? "—"));
   const values = rows.map((row) => Number(row[chart.encodings.y.field] ?? 0));
   const valueFormat = chart.valueFormat ?? chart.encodings.y.format ?? "number";
+  const xLabel = chart.encodings.x.label ?? chart.encodings.x.field;
+  const yLabel = chart.encodings.y.label ?? chart.encodings.y.field;
+  const isBar = chart.type === "bar";
+  const isLine = chart.type === "line";
+  const isPie = chart.type === "pie";
+  const isScatter = chart.type === "scatter";
   section.append(heading, canvasShell);
 
   const instance = new Chart(canvas, {
     type: chart.type,
     data: {
-      labels,
+      labels: isScatter ? undefined : labels,
       datasets: [
         {
-          label: chart.encodings.y.label ?? chart.title,
-          data: values,
-          backgroundColor: chart.type === "pie"
+          label: yLabel,
+          data: isScatter
+            ? rows.map((row) => ({
+                x: Number(row[chart.encodings.x.field] ?? 0),
+                y: Number(row[chart.encodings.y.field] ?? 0)
+              }))
+            : values,
+          backgroundColor: isPie
             ? ["#4459c6", "#25a59a", "#e4a448", "#7c6fc7", "#5994c7", "#9aa5b5"]
-            : values.map((value) => value < 0 ? "#c65f62" : "#4459c6"),
-          borderColor: chart.type === "pie" ? "#ffffff" : "transparent",
-          borderWidth: chart.type === "pie" ? 2 : 0,
-          borderRadius: chart.type === "bar" ? 5 : 0
+            : isLine
+              ? "rgba(68, 89, 198, 0.16)"
+              : isScatter
+                ? "#4459c6"
+                : values.map((value) => value < 0 ? "#c65f62" : "#4459c6"),
+          borderColor: isPie ? "#ffffff" : isLine || isScatter ? "#4459c6" : "transparent",
+          borderWidth: isPie || isLine ? 2 : 0,
+          borderRadius: isBar ? 5 : 0,
+          fill: false,
+          tension: isLine ? 0.22 : 0,
+          pointRadius: isLine ? 3 : isScatter ? 4 : 0,
+          pointHoverRadius: isLine || isScatter ? 5 : 0
         }
       ]
     },
@@ -184,20 +204,22 @@ function renderChart(artifact: ReportArtifact, chart: ReportChart): HTMLElement 
       responsive: true,
       maintainAspectRatio: false,
       animation: false,
-      indexAxis: chart.type === "bar" ? "y" : "x",
+      indexAxis: isBar ? "y" : "x",
       plugins: {
         legend: {
-          display: chart.type === "pie",
+          display: isPie,
           position: "bottom",
           labels: { color: "#384458", usePointStyle: true, boxWidth: 9 }
         },
         tooltip: {
           callbacks: {
-            label: (context) => `${context.label ?? ""}: ${formatReportValue(context.raw, valueFormat)}`
+            label: (context) => isScatter
+              ? `${xLabel}: ${formatReportValue(context.parsed.x, "number")}, ${yLabel}: ${formatReportValue(context.parsed.y, valueFormat)}`
+              : `${context.label ?? ""}: ${formatReportValue(context.raw, valueFormat)}`
           }
         }
       },
-      scales: chart.type === "bar"
+      scales: isBar
         ? {
             x: {
               beginAtZero: true,
@@ -212,7 +234,30 @@ function renderChart(artifact: ReportArtifact, chart: ReportChart): HTMLElement 
               grid: { display: false }
             }
           }
-        : undefined
+        : isLine || isScatter
+          ? {
+              x: {
+                type: isScatter ? "linear" : "category",
+                title: { display: true, text: xLabel, color: "#384458" },
+                ticks: {
+                  color: "#667085",
+                  callback: isScatter
+                    ? (value) => formatReportValue(Number(value), "number")
+                    : undefined
+                },
+                grid: { color: "#edf0f5" }
+              },
+              y: {
+                beginAtZero: true,
+                title: { display: true, text: yLabel, color: "#384458" },
+                ticks: {
+                  color: "#667085",
+                  callback: (value) => formatReportValue(Number(value), valueFormat)
+                },
+                grid: { color: "#e5e9f0" }
+              }
+            }
+          : undefined
     }
   });
   charts.push(instance);

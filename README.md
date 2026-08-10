@@ -11,7 +11,7 @@ Write constrained Report Markdown as ordinary text and keep a polished report pr
 - Recognizes `*.report.md` files as **Report Markdown**.
 - Opens a live preview beside the source with **Ctrl+K V** or **Auditable Reports: Open Preview to the Side**.
 - Preserves normal VS Code text editing, search, source control, undo, and agent workflows.
-- Renders prose, lists, links, code blocks, metric strips, semantic tables, figures, and bounded bar or pie charts.
+- Renders prose, lists, links, code blocks, metric strips, semantic tables, figures, and bounded bar, line, pie, or scatter charts.
 - Uses bundled Chart.js for the editing preview.
 - Honors document profile, source visibility, page orientation, and other safe report settings.
 - Reports invalid directives and front matter through VS Code diagnostics and the **Auditable Reports** output channel.
@@ -48,7 +48,7 @@ format: currency
 
 Snippets are included for a new report, metric strip, chart, semantic table, and figure. Type `report`, `metrics`, `chart`, `table`, or `figure` in a Report Markdown editor to insert one.
 
-The DSL deliberately limits charts to one-series bar charts or six-slice pie charts, tables to eight columns, metric strips to six values, and datasets to bounded reviewed rows. Those constraints keep authored files predictable and printable.
+The DSL deliberately limits charts to one prepared series: 12 bars, 24 unique line-chart x values, 6 positive pie slices, or 50 numeric scatter points. Tables remain limited to eight columns, metric strips to six values, and datasets to bounded reviewed rows. Those constraints keep authored files predictable and printable.
 
 ## Preview versus print
 

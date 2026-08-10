@@ -20,7 +20,7 @@ isolated VS Code webview
       ├─ Markdown narrative
       ├─ metrics and semantic tables
       ├─ embedded validated figures
-      └─ Chart.js bar and pie charts
+      └─ Chart.js bar, line, pie, and scatter charts
 ```
 
 The extension never writes a durable `artifact.json` during preview. Temporary compilation output is created under the operating-system temporary directory and removed after each attempt.

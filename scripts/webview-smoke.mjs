@@ -91,10 +91,15 @@ try {
     tables: document.querySelectorAll(".table-card").length,
     figures: document.querySelectorAll(".figure-card img").length,
     title: document.querySelector(".report-markdown h1")?.textContent,
-    horizontalOverflow: document.documentElement.scrollWidth - window.innerWidth
+    horizontalOverflow: document.documentElement.scrollWidth - window.innerWidth,
+    chartTypes: [...document.querySelectorAll(".chart-card")]
+      .map((chart) => chart.getAttribute("data-chart-type"))
   }));
-  if (checks.cards !== 4 || checks.charts !== 2 || checks.tables !== 1 || checks.figures !== 1) {
+  if (checks.cards !== 4 || checks.charts !== 4 || checks.tables !== 1 || checks.figures !== 1) {
     throw new Error(`Preview fixture rendered unexpected components: ${JSON.stringify(checks)}`);
+  }
+  if (checks.chartTypes.join(",") !== "bar,line,scatter,pie") {
+    throw new Error(`Preview fixture rendered unexpected chart types: ${checks.chartTypes.join(", ")}`);
   }
   if (checks.title !== "Northwind Delivery Review") throw new Error(`Unexpected preview title: ${checks.title}`);
   if (checks.horizontalOverflow > 1) throw new Error(`Preview has ${checks.horizontalOverflow}px horizontal overflow.`);
@@ -104,7 +109,7 @@ try {
   await mkdir(resolve(root, "artifacts", "runtime"), { recursive: true });
   await page.screenshot({ path: resolve(root, "images", "report-preview.png") });
   await page.screenshot({ path: resolve(root, "artifacts", "runtime", "report-preview.png") });
-  console.log("Webview smoke passed: metrics, Chart.js visuals, semantic table, figure, and responsive width.");
+  console.log("Webview smoke passed: metrics, four bounded Chart.js types, semantic table, figure, and responsive width.");
 } finally {
   await browser.close();
   await new Promise((resolveClose) => server.close(resolveClose));

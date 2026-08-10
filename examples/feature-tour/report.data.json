@@ -58,6 +58,46 @@
         "next_gate": "2026-08-01"
       }
     ],
+    "validation_periods": [
+      {
+        "period": "Week 1",
+        "validation_rate": 0.78
+      },
+      {
+        "period": "Week 2",
+        "validation_rate": 0.84
+      },
+      {
+        "period": "Week 3",
+        "validation_rate": 0.89
+      },
+      {
+        "period": "Week 4",
+        "validation_rate": 0.93
+      }
+    ],
+    "conversion_observations": [
+      {
+        "source_rows": 1200,
+        "exception_count": 8
+      },
+      {
+        "source_rows": 2450,
+        "exception_count": 14
+      },
+      {
+        "source_rows": 3700,
+        "exception_count": 17
+      },
+      {
+        "source_rows": 5100,
+        "exception_count": 25
+      },
+      {
+        "source_rows": 6800,
+        "exception_count": 29
+      }
+    ],
     "delivery_areas": [
       {
         "area": "Platform",

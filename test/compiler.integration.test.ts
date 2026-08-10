@@ -13,7 +13,10 @@ test("bundled canonical compiler produces an artifact for the feature tour", asy
   );
   assert.equal(artifact.surface, "report");
   assert.equal(artifact.manifest.title, "Northwind Delivery Review");
-  assert.equal(artifact.manifest.charts.length, 2);
+  assert.deepEqual(
+    artifact.manifest.charts.map((chart) => chart.type),
+    ["bar", "line", "scatter", "pie"]
+  );
   assert.equal(artifact.manifest.tables.length, 1);
   assert.equal(artifact.manifest.cards.length, 4);
 });

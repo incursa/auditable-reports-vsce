@@ -1,11 +1,11 @@
 {
   "sourceRepository": "https://github.com/incursa/auditable-reports",
-  "sourceCommit": "098c9b6ab7ffbab3e4f0ac87c0d67b1110fcd270",
+  "sourceCommit": "afd7f2f55c0ac052bfb18fd1a79e04cf5a2053af",
   "sourcePath": "skill/create-auditable-reports/scripts",
   "files": [
     {
       "file": "compile_report.py",
-      "sha256": "d7d4ee058556e14f965e522de62888aff124213b019cfd62ac978e741337f371"
+      "sha256": "4d026f4385453171dc946e83e09c741e4047761e958b820ae6e9e5dea1364f37"
     },
     {
       "file": "report_config.py",

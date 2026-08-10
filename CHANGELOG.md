@@ -1,5 +1,15 @@
 # Changelog
 
+## 0.1.5
+
+- Synced the canonical compiler from `auditable-reports` commit `afd7f2f`.
+- Added bounded line and scatter charts to the editing preview, snippets, documentation, and regression fixture.
+- Kept the extension preview aligned with the canonical chart limits and numeric scatter-axis contract.
+
+## 0.1.4
+
+- Removed duplicated command category labels in the VS Code command palette.
+
 ## 0.1.3
 
 - Added a chartless decision-brief fixture proving hidden stakeholder sources do not remove canonical evidence.

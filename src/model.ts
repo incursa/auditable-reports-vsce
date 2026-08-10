@@ -60,12 +60,12 @@ export interface ReportChart {
   readonly id: string;
   readonly title: string;
   readonly subtitle?: string;
-  readonly type: "bar" | "pie";
+  readonly type: "bar" | "line" | "pie" | "scatter";
   readonly dataset: string;
   readonly sourceId: string;
   readonly valueFormat?: ReportFormat;
   readonly encodings: {
-    readonly x: { readonly field: string; readonly label?: string };
+    readonly x: { readonly field: string; readonly label?: string; readonly type?: string };
     readonly y: { readonly field: string; readonly label?: string; readonly format?: ReportFormat };
   };
 }

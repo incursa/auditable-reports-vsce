@@ -65,6 +65,44 @@ column: next_gate | Next gate | date | date
 sort: variance | desc
 :::
 
+## Validation trend
+
+The ordered line chart shows the bounded single-series trend layout used for dates and other unique categories.
+
+::: chart
+id: validation_trend_chart
+type: line
+title: Validation rate by review period
+subtitle: Synthetic weekly validation results
+dataset: validation_periods
+source: portfolio_snapshot
+category: period
+value: validation_rate
+category-label: Review period
+value-label: Validation rate
+format: percent
+keep-together: true
+:::
+
+## Volume and exceptions
+
+The scatter chart uses numeric fields on both axes to show a simple relationship without exposing arbitrary Chart.js configuration.
+
+::: chart
+id: volume_exception_scatter
+type: scatter
+title: Source volume and exception count
+subtitle: Synthetic conversion observations
+dataset: conversion_observations
+source: portfolio_snapshot
+category: source_rows
+value: exception_count
+category-label: Source rows
+value-label: Exceptions
+format: number
+keep-together: true
+:::
+
 ## Print workflow
 
 The editable file compiles to the canonical artifact before either preview or print rendering. The extension uses the same boundary and never treats its webview as durable output.

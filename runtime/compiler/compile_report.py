@@ -40,7 +40,9 @@ SUPPORTED_COLUMN_ROLES = {
 }
 EVIDENCE_COLLECTIONS = {"requirements", "conflicts", "decisions", "assumptions", "recommendations"}
 MAX_BAR_ITEMS = 12
+MAX_LINE_ITEMS = 24
 MAX_PIE_ITEMS = 6
+MAX_SCATTER_ITEMS = 50
 MAX_TABLE_COLUMNS = 8
 MAX_TABLE_ROWS = 50
 MAX_METRICS = 6
@@ -514,8 +516,8 @@ def compile_chart(
     reject_unknown(props, allowed, directive.line)
     chart_id = valid_id(single(props, "id", directive.line), directive.line)
     chart_type = single(props, "type", directive.line)
-    if chart_type not in {"bar", "pie"}:
-        raise error(directive.line, "chart type must be 'bar' or 'pie'")
+    if chart_type not in {"bar", "line", "pie", "scatter"}:
+        raise error(directive.line, "chart type must be 'bar', 'line', 'pie', or 'scatter'")
     dataset = single(props, "dataset", directive.line)
     source = single(props, "source", directive.line)
     category = single(props, "category", directive.line)
@@ -527,7 +529,14 @@ def compile_chart(
     require_source(source_ids, source, directive.line)
     require_field(rows, category, directive.line)
     require_numeric(rows, value, directive.line)
-    maximum = MAX_PIE_ITEMS if chart_type == "pie" else MAX_BAR_ITEMS
+    if chart_type == "scatter":
+        require_numeric(rows, category, directive.line)
+    maximum = {
+        "bar": MAX_BAR_ITEMS,
+        "line": MAX_LINE_ITEMS,
+        "pie": MAX_PIE_ITEMS,
+        "scatter": MAX_SCATTER_ITEMS,
+    }[chart_type]
     if not 2 <= len(rows) <= maximum:
         raise error(directive.line, f"{chart_type} charts require 2 to {maximum} prepared rows")
     if chart_type == "pie":
@@ -535,10 +544,16 @@ def compile_chart(
             raise error(directive.line, "pie slice categories must be unique")
         if any(row[value] <= 0 for row in rows):
             raise error(directive.line, "pie values must all be positive")
+    if chart_type == "line" and len({str(row[category]) for row in rows}) != len(rows):
+        raise error(directive.line, "line chart x-axis values must be unique")
     category_label = single(props, "category-label", directive.line, required=False) or category.replace("_", " ").title()
     value_label = single(props, "value-label", directive.line, required=False) or value.replace("_", " ").title()
     encodings: dict[str, Any] = {
-        "x": {"field": category, "type": "nominal", "label": category_label},
+        "x": {
+            "field": category,
+            "type": "quantitative" if chart_type == "scatter" else "nominal",
+            "label": category_label,
+        },
         "y": {"field": value, "type": "quantitative", "format": format_name, "label": value_label},
     }
     if chart_type == "pie":
@@ -550,7 +565,15 @@ def compile_chart(
         "type": chart_type,
         "dataset": dataset,
         "sourceId": source,
-        "intent": "composition" if chart_type == "pie" else "comparison",
+        "intent": (
+            "composition"
+            if chart_type == "pie"
+            else "trend"
+            if chart_type == "line"
+            else "relationship"
+            if chart_type == "scatter"
+            else "comparison"
+        ),
         "encodings": encodings,
         "valueFormat": format_name,
         "layout": "full",
