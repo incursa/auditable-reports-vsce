@@ -10,3 +10,4 @@
 8. Preserve the synthetic feature-tour fixture as the preview baseline until it is intentionally replaced.
 9. Do not add customer data, credentials, signed URLs, or proprietary report content.
 10. Record architectural changes in `docs/ARCHITECTURE.md` and user-visible changes in `CHANGELOG.md`.
+11. Keep durable documentation free of branch, commit, deployment, point-in-time validation, test-count, package-count, and unfinished-work status. Put release history in `CHANGELOG.md` and reproducible proof in maintained validation artifacts.

@@ -83,15 +83,15 @@ it to change the canonical preview or PDF.
 See [Migrating an HTML/CSS report](https://github.com/incursa/auditable-reports-vsce/blob/main/docs/MIGRATING-LEGACY-REPORTS.md) for the one-time mapping
 from legacy mastheads, callouts, HTML tables, images, page-break classes, and custom CSS.
 
-## Current gaps
+## Supported boundaries
 
-- The extension is desktop-only because canonical compilation currently uses Python.
+- The extension is desktop-only because canonical compilation uses Python.
 - Unsaved edits in JSON sidecars are not compiled; save the sidecar to refresh.
-- Source-to-preview scroll synchronization and click-to-reveal are not yet implemented.
+- The preview does not synchronize scrolling or provide click-to-reveal navigation.
 - The preview shows page-break markers, not exact Paged.js pages.
-- Final PDF generation is still run through the report bundle rather than from the extension.
+- Final PDF generation runs through the report bundle rather than from the extension.
 
-These are workflow enhancements, not alternate report formats; future changes should continue to compile through `artifact.json`.
+These boundaries do not introduce alternate report formats; every preview continues to compile through `artifact.json`.
 
 ## License and brand assets
 
